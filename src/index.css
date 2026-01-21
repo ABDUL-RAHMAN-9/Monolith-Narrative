@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+    /* FONT CONFIGURATION */
+    --font-display: "Syne", "Arial Black", sans-serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    /* COLOR PALETTE (Strict Monolith Dark) */
+    --color-background: hsl(0 0% 0%);
+    --color-foreground: hsl(0 0% 98%);
+    --color-card: hsl(0 0% 3%);
+    --color-card-foreground: hsl(0 0% 98%);
+    --color-primary: hsl(0 0% 98%);
+    --color-primary-foreground: hsl(0 0% 0%);
+    --color-secondary: hsl(0 0% 7%);
+    --color-secondary-foreground: hsl(0 0% 98%);
+    --color-muted: hsl(0 0% 7%);
+    --color-muted-foreground: hsl(0 0% 45%);
+    --color-accent: hsl(0 0% 15%);
+    --color-accent-foreground: hsl(0 0% 98%);
+    --color-border: hsl(0 0% 10%);
+    --color-input: hsl(0 0% 10%);
+    --color-ring: hsl(0 0% 98%);
+
+    /* ANIMATION EASINGS (The secret to high-end UI) */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+    --ease-reveal: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* BASE STYLES */
+@layer base {
+
+    *,
+    ::after,
+    ::before {
+        @apply border-border outline-none transition-colors duration-300;
+    }
+
+    html {
+        scroll-behavior: auto;
+        /* Required for Lenis */
+        @apply bg-background text-foreground selection:bg-foreground selection:text-background;
+    }
+
+    body {
+        @apply antialiased font-sans overflow-x-hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-display uppercase tracking-tighter leading-none;
+    }
+}
+
+/* EDITORIAL COMPONENTS */
+@layer components {
+
+    /* GLASSY NAV - The specific effect you wanted */
+    .glass-nav {
+        @apply bg-background/40 backdrop-blur-xl border-b border-white/5 transition-all duration-500;
+    }
+
+    /* TYPOGRAPHY SYSTEM */
+    .hero-title {
+        /* 11vw is the "sweet spot" for 8-10 letter words */
+        @apply font-display text-foreground leading-[0.8] tracking-[-0.06em] font-extrabold uppercase;
+        font-size: clamp(3.5rem, 11.5vw, 13rem);
+    }
+
+    .section-heading {
+        @apply font-display text-foreground leading-[0.95] tracking-[-0.05em] font-bold uppercase;
+        font-size: clamp(2.5rem, 8vw, 6rem);
+    }
+
+    .project-title {
+        @apply font-display text-foreground text-2xl md:text-5xl font-bold tracking-tighter uppercase leading-none;
+    }
+
+    /* UI ELEMENTS */
+    .project-number {
+        @apply font-mono text-zinc-600 text-[10px] uppercase tracking-[0.3em];
+    }
+
+    .tag {
+        @apply font-mono text-[9px] uppercase tracking-widest px-3 py-1.5 border border-white/10 text-muted-foreground bg-white/5 backdrop-blur-md transition-all hover:bg-white/10 hover:text-white;
+    }
+
+    .footer-title {
+        /* Reduced from 28vw to 15vw to ensure "TOUCH" doesn't bleed off */
+        @apply font-display text-foreground leading-[0.75] tracking-[-0.07em] font-extrabold uppercase;
+        font-size: clamp(4rem, 15vw, 18rem);
+    }
+
+    .mono-text {
+        @apply font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500;
+    }
+
+    /* REVEAL ANIMATIONS (Optimized for GSAP) */
+    .mask-reveal {
+        clip-path: inset(100% 0 0 0);
+        transition: clip-path 1.5s var(--ease-reveal);
+    }
+
+    .mask-reveal.active {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    /* Custom thin scrollbar for a luxury feel */
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-background;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-zinc-800 rounded-full hover:bg-zinc-600 transition-colors;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
